@@ -1,0 +1,61 @@
+.container {
+  display: flex;
+  gap: 20px;
+}
+
+.menu {
+  flex: 1;
+  background: #46656F;
+  min-height: 100vh;
+}
+
+.content {
+  flex: 4;
+  padding: 20px;
+}
+
+.contentPage {
+  padding: 40px;
+}
+
+.contentPage h2 {
+  font-size: 28px;
+  color: var(--foreground);
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.contentPage p {
+  font-size: 18px;
+  color: var(--textDark);
+  margin-bottom: 20px;
+}
+
+
+
+.features h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: var(--foreground);
+}
+
+.features ul {
+  list-style-type: disc;
+  margin-left: 20px;
+}
+
+.features ul li {
+  margin-bottom: 10px;
+  font-size: 18px;
+  color: var(--textDark);
+}
+
+.how h3 {
+  font-size: 24px;
+  color: var(--foreground);
+}
+
+.how p {
+  font-size: 18px;
+  color: var(--textDark);
+}
