@@ -77,12 +77,11 @@
   color: var(--textDark);
 }
 
-.loader {
-  animation:spin 4s linear infinite;
-}
 
-.loader svg {
+.projectList .loader svg {
+  margin: 0 auto;
   height: 100px;
+  animation:spin 4s linear infinite;
 }
 
 @keyframes spin {

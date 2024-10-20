@@ -1,6 +1,14 @@
+import { redirect } from "next/navigation";
+import { auth } from "../../../auth";
 import styles from "../components/dashboard.module.css";
 
-const DashboardPage = () => { 
+
+const DashboardPage = async () => { 
+
+  const session = await auth();
+
+  if (!session?.user) redirect("/");
+
   return (
     <div>
       <div className={styles.contentPage}>

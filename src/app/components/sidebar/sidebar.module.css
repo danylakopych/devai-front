@@ -10,7 +10,7 @@
 
 .logo {
   display: flex;
-  background: var(--text);
+  background: var(--background);
   width: 100%;
   align-items: center;
   justify-content: center;

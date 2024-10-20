@@ -1,48 +1,56 @@
+'use server';
 export interface Project {
-  id: number;
-  name: string;
-  description: string;
-  startDate?: string;
-  endDate?: string;
+  project_id: number;
+  project_name: string;
+  description?: string;
+  createdAt?: string;
+  user_id: number;
 }
 
 export interface NewProject {
-  name: string;
+  project_name: string;
   description: string;
-  startDate: string;
-  endDate: string;
+  createdAt?: string;
+  user_id: number;
 }
 
-// Отримати список проектів
 export const fetchProjects = async (): Promise<Project[]> => {
   try {
-    const response = await fetch('http://localhost:4000/projects');
+    const response = await fetch('http://localhost:4000/project');
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
-    return await response.json();
+    const data = await response.json();
+    
+    return data.map((project: {
+      project_id: string;
+      project_name: string;
+      description: string;
+      created_at: string;
+      user_id: string;
+    }) => ({
+      project_id: project.project_id,
+      project_name: project.project_name,
+      description: project.description,
+      createdAt: project.created_at,
+      user_id: project.user_id,
+    }));
   } catch (error) {
     console.error('Error fetching projects:', error);
-    throw error; // Перевикидання помилки для обробки в компоненті
+    throw error; 
   }
 };
 
-// Створити новий проект
 export const createProject = async (newProject: NewProject): Promise<void> => {
   try {
-    const formattedStartDate = new Date(newProject.startDate!).toISOString();
-    const formattedEndDate = new Date(newProject.endDate!).toISOString();
-
-    const response = await fetch('http://localhost:4000/projects', {
+    const response = await fetch('http://localhost:4000/project', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        ...newProject,
-        startDate: formattedStartDate,
-        endDate: formattedEndDate,
-      }),
+      body: JSON.stringify(
+        newProject,
+      ),
     });
 
     if (!response.ok) {
@@ -54,10 +62,15 @@ export const createProject = async (newProject: NewProject): Promise<void> => {
   }
 };
 
-// Видалити проект
+export async function getProject(id: number) {
+  const res = await fetch(`${process.env.BACKEND_URL}/project/${id}`);
+  if (!res.ok) return undefined;
+  return res.json();
+}
+
 export const deleteProject = async (projectId: number) => {
   try {
-    const response = await fetch(`http://localhost:4000/projects/${projectId}`, {
+    const response = await fetch(`http://localhost:4000/project/${projectId}`, {
       method: 'DELETE',
     });
 
@@ -65,9 +78,35 @@ export const deleteProject = async (projectId: number) => {
       throw new Error('Failed to delete project');
     }
 
-    // Оновити список проектів після видалення
     fetchProjects();
   } catch (error) {
     console.error('Error deleting project:', error);
+  }
+};
+
+export const fetchProjectsByUserId = async (userId: number): Promise<Project[]> => {
+  try {
+    const response = await fetch(`http://localhost:4000/project/user/${userId}`);
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const data = await response.json();
+    console.log(data);
+    return data.map((project: {
+      project_id: number;
+      project_name: string;
+      description: string;
+      created_at: string;
+      user_id: number;
+    }) => ({
+      project_id: project.project_id,
+      project_name: project.project_name,
+      description: project.description,
+      createdAt: project.created_at,
+      user_id: project.user_id,
+    }));
+  } catch (error) {
+    console.error('Error fetching projects by user ID:', error);
+    throw error;
   }
 };
