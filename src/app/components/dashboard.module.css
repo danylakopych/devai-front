@@ -12,6 +12,7 @@
 .content {
   flex: 4;
   padding: 20px;
+  min-height: 100vh;
 }
 
 .contentPage {
@@ -58,4 +59,9 @@
 .how p {
   font-size: 18px;
   color: var(--textDark);
+}
+
+.containerPage {
+  margin-top: 20px;
+  padding: 20px;
 }

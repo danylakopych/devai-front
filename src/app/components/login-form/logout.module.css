@@ -1,0 +1,19 @@
+.form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+.logout {
+  padding: 5px 10px;
+  border: 2px solid var(--text);
+  border-radius: 10px;
+  transition: .3s all;
+}
+
+.logout:hover {
+  border-color: var(--text);
+  background: var(--text);
+  color: var(--textDark);
+}

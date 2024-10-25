@@ -2,7 +2,6 @@ import Link from "next/link";
 import Projects from "../projects/projects";
 import styles from "./sidebar.module.css";
 import Logo from "../logo/logo";
-import Logout from "../login-form/logout";
 import { getCurrentUser } from "@/app/services/login/action";
 import { auth } from "../../../../auth";
 import { User } from "@/app/services/users/action";
@@ -16,9 +15,7 @@ const SideBar = async () => {
         <Logo />
         <div>DEVAI</div>
       </Link>
-      <Logout />
-      {currentUser?.username}
-      <Projects currentUser={currentUser}/>
+      <Projects currentUser={currentUser} />
     </div>
   );
 };

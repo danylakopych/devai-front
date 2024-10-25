@@ -1,9 +1,13 @@
-import { getProject } from '@/app/services/projects/actions';
+import { getProject, Project } from '@/app/services/projects/actions';
+import { fetchProjectStageByProjectId } from '@/app/services/stage/actions';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 
 export default async function ProjectPage({ params }: { params: { id: string } }) {
-  const project = await getProject(Number(params.id));
+  const project = await getProject(Number(params.id)) as Project;
+
+  const stages = await fetchProjectStageByProjectId(project.project_id);
 
   if (!project) {
     return notFound();
@@ -11,10 +15,15 @@ export default async function ProjectPage({ params }: { params: { id: string } }
 
   return (
     <div>
-      <h1>{project.project_name}</h1>
-      <p>{project.description}</p>
-      <p>{project.created_at}</p>
-      <p>{project.user_id}</p>
+      <ul>
+        {stages.map(stage => ( 
+        <li key={stage.stage_id}>
+          <Link href={`/projects/project-stage/${stage.stage_id}`}>
+            <div className=''>{stage.stage_name}</div>
+          </Link>
+        </li>
+      ))}
+      </ul>
     </div>
   );
 }

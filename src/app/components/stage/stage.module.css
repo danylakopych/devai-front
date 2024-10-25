@@ -1,63 +1,9 @@
-.projectList {
-  height: 100%;
-  list-style: none;
-  width: 100%;
-  padding: 0;
+.stageList {
+  color: var(--text);
+}
+
+.stageList li {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin-top: 30px;
-}
-
-.createButton {
-  margin-top: 10px;
-  padding: 10px 20px;
-  transition: .3s all;
-}
-
-.createButton:hover {
-  color: var(--textDark);
-}
-
-.item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  gap: 10px;
-}
-
-.projectList ul {
-  gap: 15px;
-}
-
-.projectList li {
-  padding: 10px;
-}
-
-.projectList li a {
-  height: 100%;
-  width: 100%;
-}
-
-.projectList li:hover {
-  background: var(--text);
-  color: var(--textDark);
-  border-radius: 5px;
-  transition: .3s all;
-}
-
-.link {
-  text-decoration: none;
-  display: block;
-  box-sizing: border-box;
-  border-radius: 5px;
-}
-
-.activeItem {
-  background: var(--background);
-  color: var(--textDark);
-  border-radius: 5px;
 }
 
 .form {
@@ -87,7 +33,7 @@
 }
 
 
-.projectList .loader svg {
+.loader svg {
   margin: 0 auto;
   height: 100px;
   animation:spin 4s linear infinite;
@@ -132,6 +78,23 @@
   cursor: pointer;
 }
 
+.createButton {
+  margin-top: 10px;
+  padding: 10px 20px;
+  transition: .3s all;
+}
+
+.createButton:hover {
+  color: var(--textDark);
+}
+
+.createButton  p {
+  margin: 0 auto;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
 .divider {
   margin-top: 10px;
   height: 1px;
@@ -139,10 +102,8 @@
   background: var(--text);
 }
 
-.stageDropdown {
-  padding: 10px;
-  margin: 10px;
-  display: block;
-  background: #46656F;
+.activeItem {
+  background: var(--background);
+  color: var(--textDark);
   border-radius: 5px;
 }

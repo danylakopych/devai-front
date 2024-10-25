@@ -6,11 +6,12 @@ import Link from "next/link";
 import { createProject, deleteProject, fetchProjectsByUserId, Project } from "@/app/services/projects/actions";
 import { FaTrash } from "react-icons/fa";
 import { AiFillMinusCircle, AiFillPlusCircle, AiOutlineReload } from "react-icons/ai";
-import { IoMdClose } from "react-icons/io";
+import { IoIosArrowDown, IoIosArrowUp, IoMdClose } from "react-icons/io";
 import { User } from "@/app/services/users/action";
+import StagePage from "../stage/stage";
+
 
 const Projects = ({currentUser}: {currentUser: User}) => {
-
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [newProject, setNewProject] = useState({
@@ -19,6 +20,7 @@ const Projects = ({currentUser}: {currentUser: User}) => {
     user_id: currentUser?.user_id,
   });
   const [showForm, setShowForm] = useState<boolean>(false);
+  const [openStageForProject, setOpenStageForProject] = useState<number | null>(null); 
   const pathname = usePathname();
 
   useEffect(() => {
@@ -66,37 +68,53 @@ const Projects = ({currentUser}: {currentUser: User}) => {
     }
   }
 
-/*   if (loading) {
-    return <div className={styles.loader}><AiOutlineReload size={50} /></div>;
-  } */
+  const toggleStageDropdown = (projectId: number) => {
+    setOpenStageForProject(openStageForProject === projectId ? null : projectId);
+  };
 
   return (
     <div className={styles.projectList}>
       {loading ? (
         <div className={styles.loader}><AiOutlineReload size={50} /></div>
       ) : (
-          <ul>
-            {projects.map((project) => (
-              <li key={project.project_id} className={pathname === `/projects/${project.project_id}` ? styles.activeItem : {} as string}>
+        <ul>
+          {projects.map((project) => (
+            <li key={project.project_id} className={pathname === `/projects/${project.project_id}` ? styles.activeItem : ""}>
+              <div className={styles.item}>
                 <Link href={`/projects/${project.project_id}`}>
                   <div className={styles.link}>{project.project_name}</div>
                 </Link>
                 <button onClick={() => handleDeleteProject(project.project_id)} className={styles.deleteButton}>
                   <FaTrash />
                 </button>
-              </li>
-            ))}
-          </ul>
+
+                <button
+                  className={styles.stageDropdownButton}
+                  onClick={() => toggleStageDropdown(project.project_id)}
+                >
+                  {openStageForProject === project.project_id ?
+                    <IoIosArrowUp /> : <IoIosArrowDown />}
+                </button>
+              </div>
+
+              {openStageForProject === project.project_id && (
+                <div className={styles.stageDropdown}>
+                  <StagePage currentProject={project} />
+                </div>
+              )}
+            </li>
+          ))}
+        </ul>
       )}
 
-      <div className="">
+      <div>
         <div className={styles.divider}></div>
 
         <button onClick={() => setShowForm(!showForm)} className={styles.createButton}>
           {showForm ?
-            <AiFillMinusCircle size={50}/>
+            <AiFillMinusCircle size={50} />
             :
-            <AiFillPlusCircle size={50}/>
+            <AiFillPlusCircle size={50} />
           }
         </button>
       </div>

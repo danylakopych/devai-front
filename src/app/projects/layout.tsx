@@ -1,4 +1,3 @@
-import Footer from "../components/footer/footer";
 import NavBar from "../components/navbar/navbar";
 import SideBar from "../components/sidebar/sidebar";
 import styles from "../components/dashboard.module.css";
@@ -14,8 +13,9 @@ const Layout = ({ children, }: Readonly<{
       </div>
       <div className={styles.content}>
         <NavBar />
-        {children}
-        <Footer />
+        <div className={styles.containerPage}>
+          {children}
+        </div>
       </div>
     </div>
     );

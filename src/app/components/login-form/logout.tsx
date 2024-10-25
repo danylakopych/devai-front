@@ -1,9 +1,12 @@
 import { doLogout } from "@/app/services/login/action"
+import styles from "./logout.module.css";
+import { User } from "@/app/services/users/action";
 
-const Logout = () => {
+const Logout = ({currentUser}: {currentUser: User}) => {
   return (
-    <form action={doLogout}>
-        <button className="bg-blue-400 my-2 text-white p-1 rounded" type="submit">Logout</button>
+    <form className={styles.form} action={doLogout}>
+        Hello, {currentUser.username}
+        <button className={styles.logout} type="submit">Logout</button>
     </form>
   )
 }
