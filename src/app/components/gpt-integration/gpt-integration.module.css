@@ -1,0 +1,34 @@
+.gptIntegrationContainer {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.tabMenu {
+  display: flex;
+  padding-left: 20px;
+  border-bottom: 2px solid #46656F;
+}
+
+.tabItem {
+  padding: 5px 20px;
+  cursor: pointer;
+  transition: background .3s, color .3s;
+  color: #46656F;
+}
+
+.tabItem:hover {
+  background-color: #46656F;
+  border-radius: 10px 10px 0 0;
+  color: var(--text);
+}
+
+.activeTab {
+  border: 2px solid #46656F;
+  border-bottom: none;
+  border-radius: 10px 10px 0 0;
+}
+
+.chatContainer {
+  padding: 20px;
+}
